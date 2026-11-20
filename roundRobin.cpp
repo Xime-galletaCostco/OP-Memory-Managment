@@ -23,8 +23,8 @@ int main() {
 	int velocidad_ms = 600; // para el delay
 
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
-	
-	mainQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
+	std::queue<Proceso>newQueue;
+	newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
 
 	do {
 // bloque interfaz
