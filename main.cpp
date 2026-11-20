@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <list>
 #include "roundRobin.hpp"
@@ -11,7 +10,7 @@ int main(){
     cout<<"1)1024 GB"<<endl;
     cout<<"2)4096 GB"<<endl;
     cout<<"3)8192 GB "<<endl;
-    cout<<"Su respuesta:";
+    cout<<"Su respuesta: ";
     int opc;
     cin>>opc;
     list <Bloque>memoria;
@@ -31,10 +30,14 @@ int main(){
     default:
         break;
     }
-    cout<<"Elija el tiempo de duracion de cuantum"<<endl;
+    cout<<"Elija el tiempo de duracion de quantum: ";
     int numQ,numProceso;
     cin>>numQ;
-    cout<<"Elija el numero de procesos"<<endl;
+    cout<<"Elija el numero de procesos: ";
     cin>>numProceso;
+
+	// metemos el bloque inicial a la memoria
+	memoria.push_front(inicial);
     roundRobin(memoria,numQ,numProceso);
+	return 0;
 }
