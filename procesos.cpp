@@ -3,22 +3,19 @@
 #include <ctime>
 #include <thread>
 #include <chrono>
+#include <queue>
+#include "procesos.hpp"
 
 using namespace std;
 
-struct Proceso {
-    int id;
-    int tam;
-    int cuanto;
-};
-
-int main() {
+queue<Proceso> procesos(int cantidad) {
+	queue<Proceso> mainQueue;
     srand((unsigned)time(NULL));
     int sig_id = 0;
     int tam_max_proceso = 1024;
     int cuanto_max_proceso = 10;
     int velocidad_ms = 600;
-    int total_ciclos = 10;
+    int total_ciclos = cantidad;
 
     for (int ciclo = 1; ciclo <= total_ciclos; ++ciclo) {
         Proceso p;
@@ -26,10 +23,8 @@ int main() {
         p.tam = 1 + (rand() % tam_max_proceso);
         p.cuanto = 1 + (rand() % cuanto_max_proceso);
 
-        cout << "Ciclo " << ciclo << " -> Proceso P" << p.id
-             << " | Tamano: " << p.tam << " KB"
-             << " | Cuanto: " << p.cuanto << endl;
-
-        this_thread::sleep_for(chrono::milliseconds(velocidad_ms));
+	mainQueue.push(p);
     }
+
+	return mainQueue;
 }
