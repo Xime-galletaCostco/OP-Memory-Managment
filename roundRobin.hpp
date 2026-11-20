@@ -1,3 +1,3 @@
 #pragma once
 
-void roundRobin();
+void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProc);

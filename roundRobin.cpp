@@ -14,10 +14,10 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 #include "printQueue.hpp" // contiene la funcion que imprime la memoria de izq a der ultimo a primer elemento respectivamente
 #include "primerAjuste.hpp"
 // cambien la funcion main por void roundRobin("parametro"). Si necesitan una salida cambien el void por el tipo de dato.
-void roundRobin(std::list <Bloque>&memoria) {
+void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce) {
 	//variables de round robin
-	int cuantoSys = 4; // esta variable debe cambiar en ejecucion
-	int procesosCant = 4; // esta tambien
+	int cuantoSys = cuaaan; // esta variable debe cambiar en ejecucion
+	int procesosCant = numProce; // esta tambien
 	int ciclo = 0; // ciclo ;)
 
 	int velocidad_ms = 600; // para el delay
