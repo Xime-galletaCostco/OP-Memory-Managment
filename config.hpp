@@ -1,6 +1,7 @@
 #include <queue>
 #include <list>
 #include<iostream>
+#include "procesos.hpp"
 #pragma once
 #define  SIZEONE 8192
 #define  SIZETWO 4096 
@@ -8,10 +9,10 @@
 #define  MINIMUNSIZE 32
 
 struct Bloque{
-    int id;//el cual va a ser unico
-    int tamMax;
-    int  qAsignado;
-    int qMax;
+    Proceso process;
+    int inicio;
+    int size;
+    bool estado;
 };
 
 
