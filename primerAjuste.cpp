@@ -22,3 +22,24 @@ bool primerAjuste(std::list<Bloque>&memoria,Proceso process){
     }
     return false;
 }
+void liberarMemoria(std::list<Bloque>& memoria, int id) {
+    for (auto it = memoria.begin(); it != memoria.end(); ++it) {
+        if (it->estado == false && it->process.id == id) { //aqui ya encontro el iterador
+            it->estado = true;//vamos cambiando el bloque 
+            it->process = {0, 0, 0};
+            auto sig = std::next(it);
+            if (sig != memoria.end() && sig->estado == true) {//es decir que esta libre siguiente
+                it->size += sig->size; 
+                memoria.erase(sig);   //borramos nodo siguiente ya que ya sse combino
+            }
+            if (it != memoria.begin()) {
+                auto ant = std::prev(it);//checamos el nodo previo
+                if (ant->estado == true) {
+                    ant->size += it->size; //se suma a todo
+                    memoria.erase(it);    //se borra iterador porque el inicio es de previo
+                }
+            }
+            break;
+        }
+    }
+}

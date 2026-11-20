@@ -12,9 +12,9 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 // Cabeceras propias
 #include "procesos.hpp" // aqui se define el tipo de dato Proceso que es una struct
 #include "printQueue.hpp" // contiene la funcion que imprime la memoria de izq a der ultimo a primer elemento respectivamente
-
+#include "primerAjuste.hpp"
 // cambien la funcion main por void roundRobin("parametro"). Si necesitan una salida cambien el void por el tipo de dato.
-int main() {
+void roundRobin(std::list <Bloque>&memoria) {
 	//variables de round robin
 	int cuantoSys = 4; // esta variable debe cambiar en ejecucion
 	int procesosCant = 4; // esta tambien
@@ -25,7 +25,16 @@ int main() {
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
 	std::queue<Proceso>newQueue;
 	newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
-
+	while(!newQueue.empty()){
+		if(primerAjuste(memoria,newQueue.front())){
+			//es decir que si se puede acomodar
+			mainQueue.push(newQueue.front());
+			newQueue.pop();
+		}
+		else{
+			break;
+		}
+	}
 	do {
 // bloque interfaz
 		std::cout << "---\n";
@@ -68,7 +77,19 @@ int main() {
 					mainQueue.push(temp);
 				}
 			} else {
+				
+				int idTerminado=mainQueue.front().id;
 				mainQueue.pop();
+				liberarMemoria(memoria,idTerminado);//aqui ya sacamos ese proceso de la cola de listos y de ram
+				while(!newQueue.empty()){
+					if(primerAjuste(memoria,newQueue.front())){
+						mainQueue.push(newQueue.front());
+						newQueue.pop();
+					}
+					else{
+						break;
+					}
+				}
 				break;
 			}
 
@@ -78,7 +99,7 @@ int main() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(velocidad_ms));
 
 		ciclo++;
-	} while (!mainQueue.empty());
+	} while (!mainQueue.empty()||!newQueue.empty());
 
-	return 0;
+	
 }
