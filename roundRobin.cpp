@@ -26,97 +26,69 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce) {
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
 	std::queue<Proceso>newQueue;
 	newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
-	/* debug
-	printQueue(newQueue);
-	std::cout << (!newQueue.empty()) << std::endl;*/
-	while(!newQueue.empty()){
-		if(primerAjuste(memoria,newQueue.front())){
-			//es decir que si se puede acomodar
-			/* debug
-			std::cout << "Proceso: ";
-			std::cout << "["
-			<< newQueue.front().id
-			<< ", "
-			<< newQueue.front().tam
-			<< ", "
-			<< newQueue.front().cuanto
-			<< "] se acomodo\n";*/
-			mainQueue.push(newQueue.front());
-			newQueue.pop();
-		} else {
-			/* debug
-			std::cout << "Proceso: ";
-			std::cout << "["
-			<< newQueue.front().id
-			<< ", "
-			<< newQueue.front().tam
-			<< ", "
-			<< newQueue.front().cuanto
-			<< "] no se puede acomodar\n";*/
-			break;
-		}
-	}
-
-	// debug printQueue(mainQueue);
 
 	do {
+		//debug, modificacion de el orden para imprimir
+		if(!newQueue.empty()){
+		if(primerAjuste(memoria,newQueue.front())){
+			std::cout<<"Entra Proceso ["<<newQueue.front().id<<","
+			<<newQueue.front().tam<<","<<newQueue.front().cuanto<<"]"<<std::endl;
+			printList(memoria);
+			mainQueue.push(newQueue.front());
+			newQueue.pop();
+		}}
 // bloque interfaz
-		std::cout << "---\n";
+		//debug de bloque interfaz para que cuadre la salida esperada
+		if(mainQueue.empty()){break;}//si no hay ninguno por atender pues se sale
+		std::cout<<"Atendiendo proceso ["<<mainQueue.front().id<<","<<mainQueue.front().tam<<","<<mainQueue.front().cuanto<<"]"<<std::endl;
+		std::queue<Proceso>copiaRR;
+		copiaRR=mainQueue;
+		copiaRR.pop();
+		std::cout<<"Lista RR ";
+		printQueue(copiaRR);
 
-		std::cout << "Ciclo: " << ciclo << "\t";
 
-		std::cout << "Memoria: ";
-		printQueue(mainQueue);
-
-		std::cout << "Proceso en Ejecucion: ";
-		std::cout << "["
-		<< mainQueue.front().id
-		<< ", "
-		<< mainQueue.front().tam
-		<< ", "
-		<< mainQueue.front().cuanto
-		<< "]\n ";
 
 // bloque bucle: 
 		for (int i = 0; i < cuantoSys; i++) {
 			if (mainQueue.empty()) {
 				break;
 			}
-
-			std::cout << "Quantum: " << i << "\t";
-			std::cout << "["
-			<< mainQueue.front().id
-			<< ", "
-			<< mainQueue.front().tam
-			<< ", "
-			<< mainQueue.front().cuanto
-			<< "]\n ";
-
 			mainQueue.front().cuanto--;
-
 			if (mainQueue.front().cuanto > 0) {
 				if (i == (cuantoSys-1)) {
 					Proceso temp = mainQueue.front();
 					mainQueue.pop();
 					mainQueue.push(temp);
+
+					//Sincronizar cuanto en la lista e imprimir
+					for(auto&b:memoria){
+						if(!b.estado&&b.process.id==temp.id){
+							b.process.cuanto=temp.cuanto;
+							break;
+						}
+					}
+					printList(memoria);
 				}
 			} else {
-				
 				int idTerminado=mainQueue.front().id;
+				//debug crear lo necesario para imprimir la salida buscada
+				int tamTerminado=mainQueue.front().tam;
 				mainQueue.pop();
+				std::cout<<"Descargando proceso["<<idTerminado<<","<<tamTerminado<<","<<"0]"<<std::endl;
+				for(const auto&b:memoria){
+					if(!b.estado&&b.process.id==idTerminado){
+							std::cout<<"[0,"<<b.size<<",0]";
+					}
+					else{
+						std::cout<<"["<<b.process.id<<","<<b.size<<","<<b.process.cuanto<<"]";
+					}		
+				}
+				std::cout<<std::endl;
 				liberarMemoria(memoria,idTerminado);//aqui ya sacamos ese proceso de la cola de listos y de ram
 				std::cout<<"Condensando huecos";
 				std::cout<<std::endl;//aqui se tiene que poner que imprima la lista doble enlazada
 				printList(memoria);
-				while(!newQueue.empty()){
-					if(primerAjuste(memoria,newQueue.front())){
-						mainQueue.push(newQueue.front());
-						newQueue.pop();
-					}
-					else{
-						break;
-					}
-				}
 				break;
 			}
 
