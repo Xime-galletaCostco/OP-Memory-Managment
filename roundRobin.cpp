@@ -13,7 +13,7 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 #include "procesos.hpp" // aqui se define el tipo de dato Proceso que es una struct
 #include "printQueue.hpp" // contiene la funcion que imprime la memoria de izq a der ultimo a primer elemento respectivamente
 #include "primerAjuste.hpp"
-
+#include "printList.hpp"//imprimir la memoria
 // cambien la funcion main por void roundRobin("parametro"). Si necesitan una salida cambien el void por el tipo de dato.
 void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce) {
 	//variables de round robin
@@ -105,6 +105,9 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce) {
 				int idTerminado=mainQueue.front().id;
 				mainQueue.pop();
 				liberarMemoria(memoria,idTerminado);//aqui ya sacamos ese proceso de la cola de listos y de ram
+				std::cout<<"Condensando huecos";
+				std::cout<<std::endl;//aqui se tiene que poner que imprima la lista doble enlazada
+				printList(memoria);
 				while(!newQueue.empty()){
 					if(primerAjuste(memoria,newQueue.front())){
 						mainQueue.push(newQueue.front());
