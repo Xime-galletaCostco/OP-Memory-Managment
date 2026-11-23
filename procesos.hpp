@@ -1,5 +1,4 @@
 #pragma once
-#include <queue>
 
 typedef struct {
 	int id;
@@ -7,4 +6,4 @@ typedef struct {
 	int cuanto;
 } Proceso;
 
-std::queue<Proceso> procesos(int);
+Proceso procesos();
