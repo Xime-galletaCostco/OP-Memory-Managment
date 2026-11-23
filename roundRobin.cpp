@@ -13,6 +13,7 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 #include "primerAjuste.hpp"
 #include "peorAjuste.hpp"
 #include "printList.hpp"//imprimir la memoria
+#include "SPresionada.hpp"//Para que el usuario pare la ejecución
 // cambien la funcion main por void roundRobin("parametro"). Si necesitan una salida cambien el void por el tipo de dato.
 void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	//variables de round robin
@@ -20,7 +21,7 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	int cuantoSys = cuaaan; // esta variable debe cambiar en ejecucion
 	int procesosCant = numProce; // esta tambien
 	int ciclo = 0; // ciclo ;)
-
+	bool salir = false;//Bandera para la salida
 	int velocidad_ms = 600; // para el delay
 
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
@@ -29,6 +30,10 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	//newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
 
 	do {
+		if (SPresionada()) { //se verifica por primera vez que no se haya presionado la S
+			salir = true;
+			break;
+		}
 		Proceso procesoNuevo = procesos();
   procesoNuevo.id = ++sig_id;
   newQueue.push(procesoNuevo);
@@ -68,6 +73,10 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 
 // bloque bucle: 
 		for (int i = 0; i < cuantoSys; i++) {
+			if (SPresionada()) { //aquí se verifica por segunda vez, en el ciclo de los bloques
+				salir = true;
+				break;
+			}
 			if (mainQueue.empty()) {
 				break;
 			}
@@ -115,6 +124,6 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(velocidad_ms));
 
 		ciclo++;
-	} while (!mainQueue.empty()||!newQueue.empty());
+	} while (!mainQueue.empty()||!newQueue.empty() && !salir);
 	
 }
