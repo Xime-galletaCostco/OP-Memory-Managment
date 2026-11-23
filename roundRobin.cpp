@@ -124,6 +124,8 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(velocidad_ms));
 
 		ciclo++;
-	} while (!mainQueue.empty()||!newQueue.empty() && !salir);
-	
+	} while ((!mainQueue.empty() || !newQueue.empty()) && !salir);
+	if (salir) {
+	std::cout << "Ejecucion detenida por el usuario" << std::endl;
+	}
 }
