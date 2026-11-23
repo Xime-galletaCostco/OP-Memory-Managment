@@ -25,6 +25,11 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	int velocidad_ms = 600; // para el delay
 
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
+ int tam_max, cuanto_max;
+ std::cout << "Tamano maximo (minimo 32): ";
+ std::cin >> tam_max;
+ std::cout << "Cuanto maximo: ";
+ std::cin >> cuanto_max;
 	std::queue<Proceso>newQueue;
 	//aqui quiten esto linea 27
 	//newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
@@ -34,7 +39,7 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 			salir = true;
 			break;
 		}
-		Proceso procesoNuevo = procesos();
+		Proceso procesoNuevo = procesos(tam_max, cuanto_max);
   procesoNuevo.id = ++sig_id;
   newQueue.push(procesoNuevo);
 		//NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN
