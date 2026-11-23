@@ -16,6 +16,7 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 // cambien la funcion main por void roundRobin("parametro"). Si necesitan una salida cambien el void por el tipo de dato.
 void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	//variables de round robin
+ int sig_id = 0;
 	int cuantoSys = cuaaan; // esta variable debe cambiar en ejecucion
 	int procesosCant = numProce; // esta tambien
 	int ciclo = 0; // ciclo ;)
@@ -29,7 +30,8 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 
 	do {
 		Proceso procesoNuevo = procesos();
-  		newQueue.push(procesoNuevo);
+  procesoNuevo.id = ++sig_id;
+  newQueue.push(procesoNuevo);
 		//NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN
 
 		//debug, modificacion de el orden para imprimir
