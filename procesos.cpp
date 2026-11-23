@@ -2,14 +2,12 @@
 #include <ctime>
 #include "procesos.hpp"
 
-Proceso procesos() {
+Proceso procesos(int tam_max_proceso, int cuanto_max_proceso) {
 	srand((unsigned)time(NULL));
-	int tam_max_proceso = 1024;
-	int cuanto_max_proceso = 10;
 
 	Proceso p;
 	p.id = 0;
-	p.tam = 1 + (rand() % tam_max_proceso);
+	p.tam = 32 + (rand() % (tam_max_proceso - 32 + 1));
 	p.cuanto = 1 + (rand() % cuanto_max_proceso);
 
 	return p;
