@@ -25,11 +25,11 @@ void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProce,int ajuste) {
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
 	std::queue<Proceso>newQueue;
 	//aqui quiten esto linea 27
-	newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
+	//newQueue = procesos(procesosCant); // aqui se llena la cola, se llama a la funcion de alex mandando como parametro la cantidad de procesos deseada
 
 	do {
 		Proceso procesoNuevo = procesos();
-  newQueue.push(procesoNuevo);
+  		newQueue.push(procesoNuevo);
 		//NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN
 
 		//debug, modificacion de el orden para imprimir
