@@ -1,5 +1,5 @@
 #include <iostream>
-#include "procesos.hpp"
+#include "OPMMLib\procesos.hpp"
 
 void printProcess(Proceso process){
 	std::cout << "["

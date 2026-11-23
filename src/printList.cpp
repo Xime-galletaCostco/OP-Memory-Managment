@@ -1,6 +1,6 @@
 #include <iostream>
 #include <list>
-#include "config.hpp"
+#include "OPMMLib\config.hpp"
 
 // funcion para poder imprimir la lista con los procesos en memoria
 void printList(const std::list<Bloque> &memoria)

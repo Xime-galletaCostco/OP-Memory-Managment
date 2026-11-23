@@ -1,5 +1,5 @@
-#include "config.hpp"
-#include "procesos.hpp"
+#include "OPMMLib\config.hpp"
+#include "OPMMLib\procesos.hpp"
 
 bool peorAjuste(std::list<Bloque>&memoria,Proceso process){
     auto peor=memoria.end();

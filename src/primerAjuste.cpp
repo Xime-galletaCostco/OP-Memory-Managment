@@ -1,5 +1,5 @@
-#include "config.hpp"
-#include "procesos.hpp"
+#include "OPMMLib\config.hpp"
+#include "OPMMLib\procesos.hpp"
 #include <iostream>
 using namespace std;
 //funcion programada por XimenaR

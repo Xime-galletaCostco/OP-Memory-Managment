@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <ctime>
-#include "procesos.hpp"
+#include "OPMMLib\procesos.hpp"
 
 Proceso procesos(int tam_max_proceso, int cuanto_max_proceso) {
 	srand((unsigned)time(NULL));

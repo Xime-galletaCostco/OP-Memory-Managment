@@ -9,14 +9,14 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 #include <chrono>
 #include <thread>
 // Cabeceras propias
-#include "procesos.hpp"	  // aqui se define el tipo de dato Proceso que es una struct
-#include "printQueue.hpp" // contiene la funcion que imprime la memoria de izq a der ultimo a primer elemento respectivamente
-#include "primerAjuste.hpp"
-#include "peorAjuste.hpp"
-#include "printList.hpp"   //imprimir la memoria
-#include "SPresionada.hpp" //Para que el usuario pare la ejecución
-#include "menuPrincipal.hpp"
-#include "config.hpp"
+#include "OPMMLib\procesos.hpp"	  // aqui se define el tipo de dato Proceso que es una struct
+#include "OPMMLib\printQueue.hpp" // contiene la funcion que imprime la memoria de izq a der ultimo a primer elemento respectivamente
+#include "OPMMLib\primerAjuste.hpp"
+#include "OPMMLib\peorAjuste.hpp"
+#include "OPMMLib\printList.hpp"   //imprimir la memoria
+#include "OPMMLib\SPresionada.hpp" //Para que el usuario pare la ejecución
+#include "OPMMLib\menuPrincipal.hpp"
+#include "OPMMLib\config.hpp"
 
 void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 {

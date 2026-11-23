@@ -1,8 +1,8 @@
 #include <iostream>
 #include <queue>
 #include <stack>
-#include "procesos.hpp"
-#include "config.hpp"
+#include "OPMMLib\procesos.hpp"
+#include "OPMMLib\config.hpp"
 
 void printQueue(std::queue<Proceso> secondQueue) {
     std::stack<Proceso> stackTemp;

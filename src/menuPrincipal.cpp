@@ -1,5 +1,5 @@
 #include <iostream>
-#include "menuPrincipal.hpp"
+#include "OPMMLib\menuPrincipal.hpp"
 
 Paquete menuPrincipal()
 {

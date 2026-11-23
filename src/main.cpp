@@ -1,8 +1,8 @@
 #include <iostream>
 #include <list>
-#include "roundRobin.hpp"
-#include "config.hpp"
-#include "menuPrincipal.hpp"
+#include "OPMMLib\roundRobin.hpp"
+#include "OPMMLib\config.hpp"
+#include "OPMMLib\menuPrincipal.hpp"
 
 using namespace std;
 int main()

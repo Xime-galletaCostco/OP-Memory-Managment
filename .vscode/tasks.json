@@ -7,9 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/*.cpp",
+                "${workspaceFolder}/src/*.cpp",
                 "-o",
-                "${fileDirname}\\OP-Memory-Management.exe"
+                "${workspaceFolder}\\output\\OP-Memory-Management.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"
