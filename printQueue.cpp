@@ -2,6 +2,7 @@
 #include <queue>
 #include <stack>
 #include "procesos.hpp"
+#include "config.hpp"
 
 void printQueue(std::queue<Proceso> secondQueue) {
     std::stack<Proceso> stackTemp;
@@ -12,13 +13,7 @@ void printQueue(std::queue<Proceso> secondQueue) {
     }
 
     while (!stackTemp.empty()) {
-        std::cout << "["
-		<< stackTemp.top().id
-		<< ", "
-		<< stackTemp.top().tam
-		<< ", "
-		<< stackTemp.top().cuanto
-		<< "] ";
+        printProcess(stackTemp.top());
         stackTemp.pop();
     }
     std::cout << "\n";

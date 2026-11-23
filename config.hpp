@@ -15,4 +15,4 @@ struct Bloque{
     bool estado=true;
 };
 
-
+void printProcess(Proceso);

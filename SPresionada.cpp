@@ -1,5 +1,5 @@
 #include <conio.h>
-#include "SPresionada.hpp"
+
 bool SPresionada() {
 	bool presionada = false;
 	while (_kbhit()) {

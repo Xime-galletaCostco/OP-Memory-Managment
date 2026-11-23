@@ -2,66 +2,96 @@
 #include <list>
 #include "roundRobin.hpp"
 #include "config.hpp"
+#include "menuPrincipal.hpp"
 
 using namespace std;
-int main(){
-    cout<<"Bienvenido estimado usuario"<<endl;
-    cout<<"Para la memoria se tienen tres tam,eliga la opcion que le sea conveninente: "<<endl ;
-    cout<<"1)1024 KB"<<endl;
-    cout<<"2)4096 KB"<<endl;
-    cout<<"3)8192 KB "<<endl;
-    cout<<"Su respuesta: ";
-    int opc;
-    cin>>opc;
-    list <Bloque>memoria;
+int main()
+{
+    list<Bloque> memoria;
     Bloque inicial;
-    switch (opc)
-    {
-    case 1:
-        inicial.size=1024;
-        break;
-        case 2:
-        inicial.size=4096;
-        break;
-        case 3:
-        inicial.size=8192;
-        break;
 
-    default:
-    cout<<"Para la memoria se tienen tres tam,eliga la opcion que le sea conveninente: "<<endl ;
-    cout<<"1)1024 KB"<<endl;
-    cout<<"2)4096 KB"<<endl;
-    cout<<"3)8192 KB "<<endl;
-    cout<<"Su respuesta: ";
-    cin>>opc;
-        break;
-    }
-    cout<<"Elija el tiempo de duracion de quantum del sistema: ";
-    int numQ,numProceso;
-    cin>>numQ;
-    cout<<"Elija el metodo para colocacion de memoria: 1) Primer Ajuste       2)Peor ajuste"<<endl;
-    int ajuste;
-    cin>>ajuste;
-    switch (ajuste)
-    {
-    case  1:
-    break;
-        //pues nada porque si esta bien
+    Paquete datos = menuPrincipal();
+
+    inicial.size = datos.memSize;
+    memoria.push_front(inicial);
+
+    roundRobin(memoria, datos);
+
+    /*
+    int opc = 0;
+    int numQ = 0;
+    int velocidad_ms = 0;
+    int ajuste = 0;
+
+    # Esta fue la primera version de menu principal
+    Fue movida a una funcion independiente por facilidad de lectura #
+
+    cout << "Bienvenido estimado usuario" << endl;
+
+    //do
+    //{
+        switch (opc)
+        {
+        case 1:
+            inicial.size = 1024;
+            break;
         case 2:
-        break;
-        //otra vez pues nada;
+            inicial.size = 4096;
+            break;
+        case 3:
+            inicial.size = 8192;
+            break;
+
         default:
-        cout<<"Elija dentro de las opciones disponibles, por favor:"<<endl;
-        cout<<" 1) Primer Ajuste       2)Peor ajuste"<<endl;
-        cin>>ajuste;
-        break;
-    }
-    cout<<"Presione Ctrl+C para parar el programa"<<endl;
-    //cout<<"Elija el numero de procesos: ";
-    //cin>>numProceso;
-    numProceso=50;
-	// metemos el bloque inicial a la memoria
-	memoria.push_front(inicial);
-    roundRobin(memoria,numQ,numProceso,ajuste);
-	return 0;
+            cout << "Para la memoria se tienen tres tam,eliga la opcion que le sea conveninente: " << endl;
+            cout << "1)1024 KB\t2)4096 KB\t3)8192 KB\n";
+            cout << "Su respuesta: ";
+            cin >> opc;
+            break;
+        }
+
+        cout << "Quantum del sistema: ";
+        cin >> numQ;
+
+        switch (ajuste)
+        {
+        case 1:
+            break;
+        // pues nada porque si esta bien ; Zachenleth: ah sos re troll XD
+        case 2:
+            break;
+        // otra vez pues nada;
+        default:
+            cout << "Elija el metodo de colocacion de memoria:\n1) Primer Ajuste\t2)Peor ajuste" << endl;
+            cout << "Su respuesta: ";
+            cin >> ajuste;
+            break;
+        }
+
+        switch (velocidad_ms)
+        {
+        case 1:
+            velocidad_ms = 1000;
+            break;
+        case 2:
+            velocidad_ms = 600;
+            break;
+        case 3:
+            velocidad_ms = 300;
+            break;
+        default:
+            cout << "Elija la velocidad de ejecucion:\n1) Lenta\t2) Normal\t3) Rapida" << endl;
+            cout << "Su respuesta: ";
+            cin >> velocidad_ms;
+            break;
+        }
+
+        cout << "\nNota: Para terminar la ejecucion presione s" << endl;
+        // metemos el bloque inicial a la memoria
+        memoria.push_front(inicial);
+        roundRobin(memoria, numQ, ajuste, velocidad_ms);
+
+    //} while (opc != 9);
+    return 0;
+    */
 }

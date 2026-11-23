@@ -1,4 +1,5 @@
 #pragma once
 #include "config.hpp"
+#include "menuPrincipal.hpp"
 
-void roundRobin(std::list <Bloque>&memoria,int cuaaan,int numProc,int ajuste);
+void roundRobin(std::list <Bloque>&memoria, Paquete datos);
