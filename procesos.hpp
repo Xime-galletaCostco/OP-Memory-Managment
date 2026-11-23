@@ -6,4 +6,4 @@ typedef struct {
 	int cuanto;
 } Proceso;
 
-Proceso procesos();
+Proceso procesos(int tam_max_proceso, int cuanto_max_proceso);
