@@ -33,7 +33,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 
 	do
 	{
-		std::cout << "--- Ciclo: " << ciclo << ", Ajuste: " << datos.allocatorFlag << "\n";
+		std::cout << "\n--- Ciclo: " << ciclo << ", Ajuste: " << datos.allocatorFlag << "\n";
 
 		Proceso procesoNuevo = procesos(datos.maxSize, datos.procQuantum);
 		procesoNuevo.id = ++sig_id;
@@ -43,9 +43,9 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		// debug, modificacion de el orden para imprimir
 		if (!newQueue.empty())
 		{
-			std::cout << "\tEntra Proceso ";
+			std::cout << "\nEntra Proceso ";
 			printProcess(newQueue.front());
-			std::cout << "\nMemoria de " << datos.memSize << " KB ";
+			std::cout << "\nMemoria : " ;
 			if (datos.allocatorFlag == 1)
 			{
 				if (primerAjuste(memoria, newQueue.front()))
@@ -71,14 +71,19 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		{
 			break;
 		} // si no hay ninguno por atender pues se sale
-		std::cout << "> Atendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
+		std::cout << "\n> Atendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
 		std::queue<Proceso> copiaRR;
 		copiaRR = mainQueue;
-		copiaRR.pop();
-		std::cout << "###\n> Lista RR\n";
+		
+		if(!copiaRR.empty()){
+			std::cout << "> Lista RR\n";
 		printQueue(copiaRR);
-		std::cout << "###\n";
-
+		copiaRR.pop();
+		std::cout << "\n";
+		}
+		else{
+			std::cout << "> Lista RR\n";
+		}
 		// bloque bucle:
 		for (int i = 0; i < datos.sysQuantum; i++)
 		{
@@ -92,6 +97,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 				break;
 			}
 			mainQueue.front().cuanto--;
+			
 			if (mainQueue.front().cuanto > 0)
 			{
 				if (i == (datos.sysQuantum - 1))
