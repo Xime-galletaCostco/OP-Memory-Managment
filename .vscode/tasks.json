@@ -9,7 +9,7 @@
                 "-g",
                 "${workspaceFolder}/src/*.cpp",
                 "-o",
-                "${workspaceFolder}\\output\\OP-Memory-Management.exe"
+                "${workspaceFolder}\\output\\${workspaceFolderBasename}.exe"
             ],
             "options": {
                 "cwd": "${fileDirname}"

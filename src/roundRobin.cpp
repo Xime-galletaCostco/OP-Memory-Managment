@@ -33,12 +33,12 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 
 	do
 	{
-		std::cout << "---\n";
+		std::cout << "--- Ciclo: " << ciclo << ", Ajuste: " << datos.allocatorFlag << "\n";
 
 		Proceso procesoNuevo = procesos(datos.maxSize, datos.procQuantum);
 		procesoNuevo.id = ++sig_id;
 		newQueue.push(procesoNuevo);
-		// NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN
+		// NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN (Solo se movio la impresion)
 
 		// debug, modificacion de el orden para imprimir
 		if (!newQueue.empty())
@@ -71,12 +71,13 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		{
 			break;
 		} // si no hay ninguno por atender pues se sale
-		std::cout << "\tAtendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
+		std::cout << "> Atendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
 		std::queue<Proceso> copiaRR;
 		copiaRR = mainQueue;
 		copiaRR.pop();
-		std::cout << "\tLista RR ";
+		std::cout << "###\n> Lista RR\n";
 		printQueue(copiaRR);
+		std::cout << "###\n";
 
 		// bloque bucle:
 		for (int i = 0; i < datos.sysQuantum; i++)

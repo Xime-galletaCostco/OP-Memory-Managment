@@ -53,7 +53,7 @@ Paquete menuPrincipal()
             break;
         }
     } while (opc < 1 || opc > 2);
-    
+
     opc = 0;
     std::cout << "---\n";
 
@@ -69,10 +69,10 @@ Paquete menuPrincipal()
             datos.velocidad_ms = 1500;
             break;
         case 2:
-            datos.velocidad_ms = 100;
+            datos.velocidad_ms = 750;
             break;
         case 3:
-            datos.velocidad_ms = 500;
+            datos.velocidad_ms = 100;
             break;
         default:
             std::cout << "Intente de nuevo\n";
@@ -86,6 +86,15 @@ Paquete menuPrincipal()
     std::cout << "---\n";
     std::cout << "Tamano maximo (minimo 32): ";
     std::cin >> datos.maxSize;
+    if (datos.maxSize < 32)
+    {
+        do
+        {
+            std::cout << "Intente de nuevo\n";
+            std::cout << "Tamano maximo (minimo 32): ";
+            std::cin >> datos.maxSize;
+        } while (datos.maxSize < 32);
+    }
     std::cout << "---\n";
     std::cout << "Cuanto maximo: ";
     std::cin >> datos.procQuantum;

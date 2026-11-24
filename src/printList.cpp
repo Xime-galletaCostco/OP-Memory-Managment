@@ -12,7 +12,6 @@ void printList(const std::list<Bloque> &memoria)
         std::cout << it->size << ",";
         std::cout << it->process.cuanto << "]";
     }
-    std::cout << std::endl;
     // la Salida esperada si tenemos dos bloques seria [1,300,2][0,200,0]
     return;
 }

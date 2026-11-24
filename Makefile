@@ -1,9 +1,14 @@
-CXX = g++
-SRC = main.cpp peorAjuste.cpp primerAjuste.cpp printList.cpp printQueue.cpp procesos.cpp roundRobin.cpp
-TARGET = TestFinal.exe
+CXX := g++
+SRC := $(wildcard src/*.cpp)
+ProjectName := $(notdir $(CURDIR))
+TARGETDIR := output
+TARGET := $(TARGETDIR)\$(ProjectName).exe
 
 build:
 	$(CXX) $(SRC) -o $(TARGET)
 
+run:
+	$(TARGET)
+
 clean:
-	rm TestFinal.exe
+	del $(TARGET)

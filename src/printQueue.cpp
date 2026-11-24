@@ -16,5 +16,4 @@ void printQueue(std::queue<Proceso> secondQueue) {
         printProcess(stackTemp.top());
         stackTemp.pop();
     }
-    std::cout << "\n";
 }
