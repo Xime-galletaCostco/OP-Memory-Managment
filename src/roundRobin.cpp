@@ -17,7 +17,7 @@ en su lugar use std::--- antes de cada sentencia como queue, stack o cout para l
 #include "OPMMLib\SPresionada.hpp" //Para que el usuario pare la ejecución
 #include "OPMMLib\menuPrincipal.hpp"
 #include "OPMMLib\config.hpp"
-
+#include "OPMMLib\imprimirListaRR.hpp"
 void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 {
 	// variables de round robin
@@ -72,18 +72,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 			break;
 		} // si no hay ninguno por atender pues se sale
 		std::cout << "\n> Atendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
-		std::queue<Proceso> copiaRR;
-		copiaRR = mainQueue;
 		
-		if(!copiaRR.empty()){
-			std::cout << "> Lista RR\n";
-		printQueue(copiaRR);
-		copiaRR.pop();
-		std::cout << "\n";
-		}
-		else{
-			std::cout << "> Lista RR\n";
-		}
 		// bloque bucle:
 		for (int i = 0; i < datos.sysQuantum; i++)
 		{
@@ -115,7 +104,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 							break;
 						}
 					}
-					//printList(memoria);
+					imprimirListaRR(mainQueue);
 				}
 			}
 			else
@@ -124,6 +113,8 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 				// debug crear lo necesario para imprimir la salida buscada
 				int tamTerminado = mainQueue.front().tam;
 				mainQueue.pop();
+
+				imprimirListaRR(mainQueue);
 				std::cout << "Descargando proceso[" << idTerminado << "," << tamTerminado << "," << "0]" << std::endl;
 				for (const auto &b : memoria)
 				{
@@ -144,6 +135,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 				break;
 			}
 		}
+		
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(datos.velocidad_ms));
 
