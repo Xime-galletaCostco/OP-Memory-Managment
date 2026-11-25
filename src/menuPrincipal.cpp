@@ -6,7 +6,6 @@ Paquete menuPrincipal()
     Paquete datos;
     int opc = 0;
 
-    std::cout << "Bienvenido estimado usuario" << std::endl;
     do
     {
         std::cout << "Para la memoria se tienen tres tam,eliga la opcion que le sea conveninente: " << std::endl;
@@ -84,20 +83,20 @@ Paquete menuPrincipal()
     std::cout << "Quantum del Sistema: ";
     std::cin >> datos.sysQuantum;
     std::cout << "---\n";
-    std::cout << "Tamano maximo (minimo 32): ";
+    std::cout << "Cuanto maximo de procesos: ";
+    std::cin >> datos.procQuantum;
+    std::cout << "---\n";
+    std::cout << "Tamano en memoria maximo de proceso (minimo 1 KB): ";
     std::cin >> datos.maxSize;
-    if (datos.maxSize < 32)
+    if (datos.maxSize < 1)
     {
         do
         {
             std::cout << "Intente de nuevo\n";
-            std::cout << "Tamano maximo (minimo 32): ";
+            std::cout << "Tamano en memoria maximo de proceso (minimo 1 KB): ";
             std::cin >> datos.maxSize;
-        } while (datos.maxSize < 32);
+        } while (datos.maxSize < 1);
     }
-    std::cout << "---\n";
-    std::cout << "Cuanto maximo: ";
-    std::cin >> datos.procQuantum;
 
     return datos;
 }

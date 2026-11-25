@@ -7,15 +7,38 @@
 using namespace std;
 int main()
 {
+    bool salir = false; // Bandera para la salida
+    int opc = 0;
+
     list<Bloque> memoria;
     Bloque inicial;
 
-    Paquete datos = menuPrincipal();
+    Paquete datos;
 
-    inicial.size = datos.memSize;
-    memoria.push_front(inicial);
+    cout << "Bienvenido estimado usuario" << endl;
+    do
+    {
+        cout << "1) Iniciar simulacion\t2) Salir" << endl;
+        std::cout << "Su respuesta: ";
+        cin >> opc;
 
-    roundRobin(memoria, datos);
+        switch (opc)
+        {
+        case 1:
+            datos = menuPrincipal();
+
+            inicial.size = datos.memSize;
+            memoria.push_front(inicial);
+
+            roundRobin(memoria, datos);
+            break;
+        case 2:
+            break;
+        default:
+            cout << "Intente de nuevo\n";
+            break;
+        }
+    } while (opc != 2);
 
     /*
     int opc = 0;

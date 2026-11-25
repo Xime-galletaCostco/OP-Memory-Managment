@@ -33,7 +33,15 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 
 	do
 	{
-		std::cout << "\n--- Ciclo: " << ciclo << ", Ajuste: " << datos.allocatorFlag << "\n";
+		std::cout << "\n--- Ciclo: " << ciclo << ", Ajuste: ";
+		if (datos.allocatorFlag == 1)
+		{
+			std::cout << "Primer Ajuste ---";
+		}
+		else if (datos.allocatorFlag == 2)
+		{
+			std::cout << "Peor Ajuste ---";
+		}
 
 		Proceso procesoNuevo = procesos(datos.maxSize, datos.procQuantum);
 		procesoNuevo.id = ++sig_id;
@@ -43,9 +51,9 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		// debug, modificacion de el orden para imprimir
 		if (!newQueue.empty())
 		{
-			std::cout << "\nEntra Proceso ";
+			std::cout << "\nEntra Proceso: ";
 			printProcess(newQueue.front());
-			std::cout << "\nMemoria : " ;
+			std::cout << "\nMemoria: ";
 			if (datos.allocatorFlag == 1)
 			{
 				if (primerAjuste(memoria, newQueue.front()))
@@ -54,7 +62,8 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 					mainQueue.push(newQueue.front());
 					newQueue.pop();
 				}
-				else{
+				else
+				{
 					printList(memoria);
 				}
 			}
@@ -66,7 +75,8 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 					mainQueue.push(newQueue.front());
 					newQueue.pop();
 				}
-				else{
+				else
+				{
 					printList(memoria);
 				}
 			}
@@ -77,78 +87,69 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		{
 			break;
 		} // si no hay ninguno por atender pues se sale
-		std::cout << "\n> Atendiendo proceso [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
-		
-		// bloque bucle:
-		for (int i = 0; i < datos.sysQuantum; i++)
+		std::cout << "\n> Atendiendo proceso: [" << mainQueue.front().id << "," << mainQueue.front().tam << "," << mainQueue.front().cuanto << "]" << std::endl;
+
+		// bloque bucle(se fue el bucle, ahora solo resta el cuanto):
+		mainQueue.front().cuanto -= datos.sysQuantum; // aqui se le resta el quantum al proceso que esta en la cabeza de la cola
+
+		if (mainQueue.front().cuanto > 0)
 		{
-			if (SPresionada())
-			{ // aquí se verifica por segunda vez, en el ciclo de los bloques
-				salir = true;
-				break;
-			}
-			if (mainQueue.empty())
+			if (mainQueue.front().cuanto == (datos.sysQuantum - 1))
 			{
-				break;
-			}
-			mainQueue.front().cuanto--;
-			
-			if (mainQueue.front().cuanto > 0)
-			{
-				if (i == (datos.sysQuantum - 1))
-				{
-					Proceso temp = mainQueue.front();
-					mainQueue.pop();
-					mainQueue.push(temp);
-
-					// Debug sincronizar cuanto en la lista e imprimir
-					for (auto &b : memoria)
-					{
-						if (!b.estado && b.process.id == temp.id)
-						{
-							b.process.cuanto = temp.cuanto;
-							break;
-						}
-					}
-					imprimirListaRR(mainQueue);
-				}
-			}
-			else
-			{
-				int idTerminado = mainQueue.front().id;
-				// debug crear lo necesario para imprimir la salida buscada
-				int tamTerminado = mainQueue.front().tam;
+				Proceso temp = mainQueue.front();
 				mainQueue.pop();
+				mainQueue.push(temp);
 
-				imprimirListaRR(mainQueue);
-				std::cout << "Descargando proceso[" << idTerminado << "," << tamTerminado << "," << "0]" << std::endl;
-				for (const auto &b : memoria)
+				// Debug sincronizar cuanto en la lista e imprimir
+				for (auto &b : memoria)
 				{
-					if (!b.estado && b.process.id == idTerminado)
+					if (!b.estado && b.process.id == temp.id)
 					{
-						std::cout << "[0," << b.size << ",0]";
-					}
-					else
-					{
-						std::cout << "[" << b.process.id << "," << b.size << "," << b.process.cuanto << "]";
+						b.process.cuanto = temp.cuanto;
+						break;
 					}
 				}
-				std::cout << std::endl;
-				liberarMemoria(memoria, idTerminado); // aqui ya sacamos ese proceso de la cola de listos y de ram
-				std::cout << "Condensando huecos";
-				std::cout << std::endl; // aqui se tiene que poner que imprima la lista doble enlazada
-				printList(memoria);
-				break;
+				imprimirListaRR(mainQueue);
 			}
 		}
-		
+		else
+		{
+			int idTerminado = mainQueue.front().id;
+			// debug crear lo necesario para imprimir la salida buscada
+			int tamTerminado = mainQueue.front().tam;
+			mainQueue.pop();
+
+			imprimirListaRR(mainQueue);
+			std::cout << "\nDescargando proceso: [" << idTerminado << "," << tamTerminado << "," << "0]" << std::endl;
+			for (const auto &b : memoria)
+			{
+				if (!b.estado && b.process.id == idTerminado)
+				{
+					std::cout << "[0," << b.size << ",0]";
+				}
+				else
+				{
+					std::cout << "[" << b.process.id << "," << b.size << "," << b.process.cuanto << "]";
+				}
+			}
+			std::cout << std::endl;
+			liberarMemoria(memoria, idTerminado); // aqui ya sacamos ese proceso de la cola de listos y de ram
+			std::cout << "Condensando huecos: ";
+			printList(memoria);
+		}
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(datos.velocidad_ms));
 
 		ciclo++;
+		std::cout << std::endl;
+		if (SPresionada())
+		{ // aquí se verifica por segunda vez, en el ciclo de los bloques
+			salir = true;
+			break;
+		}
 	} while (!salir);
 	if (salir)
 	{
-		std::cout << "Ejecucion detenida por el usuario" << std::endl;
+		std::cout << "\nEjecucion detenida por el usuario\n" << std::endl;
 	}
 }
