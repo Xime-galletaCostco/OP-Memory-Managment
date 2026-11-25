@@ -54,6 +54,9 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 					mainQueue.push(newQueue.front());
 					newQueue.pop();
 				}
+				else{
+					printList(memoria);
+				}
 			}
 			else if (datos.allocatorFlag == 2)
 			{
@@ -62,6 +65,9 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 					printList(memoria);
 					mainQueue.push(newQueue.front());
 					newQueue.pop();
+				}
+				else{
+					printList(memoria);
 				}
 			}
 		} // cierre de condicional para colocacion, es para que no nos confundamos
