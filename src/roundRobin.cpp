@@ -136,6 +136,8 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 			}
 			std::cout << std::endl;
 			liberarMemoria(memoria, idTerminado); // aqui ya sacamos ese proceso de la cola de listos y de ram
+			//Debug de 26 de noviembre arreglando condensaciones pendientes si la memoria no se limpia bien
+			liberarDeVerdad(memoria);
 			std::cout << "Condensando huecos: ";
 			printList(memoria);
 		}

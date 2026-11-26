@@ -7,14 +7,10 @@
 using namespace std;
 int main()
 {
-    bool salir = false; // Bandera para la salida
     int opc = 0;
-
     list<Bloque> memoria;
     Bloque inicial;
-
     Paquete datos;
-
     cout << "Bienvenido estimado usuario" << endl;
     do
     {
@@ -25,8 +21,11 @@ int main()
         switch (opc)
         {
         case 1:
+            memoria.clear();
             datos = menuPrincipal();
-
+            inicial.estado=true;
+            inicial.inicio=0;
+            inicial.process={0,0,0};
             inicial.size = datos.memSize;
             memoria.push_front(inicial);
 

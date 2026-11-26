@@ -3,13 +3,13 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe build active file",
-            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "command": "C:\\mingw64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/src/*.cpp",
+                "${workspaceFolder}\\src\\*.cpp",
                 "-o",
-                "${workspaceFolder}\\output\\${workspaceFolderBasename}.exe"
+                "${workspaceFolder}\\output\\OP-Memory-Managmentexe"
             ],
             "options": {
                 "cwd": "${fileDirname}"

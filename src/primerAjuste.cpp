@@ -1,6 +1,7 @@
 #include "OPMMLib\config.hpp"
 #include "OPMMLib\procesos.hpp"
 #include <iostream>
+#include <vector>
 using namespace std;
 //funcion programada por XimenaR
 bool primerAjuste(std::list<Bloque>&memoria,Proceso process){
@@ -42,6 +43,18 @@ void liberarMemoria(std::list<Bloque>& memoria, int id) {
                 }
             }
             break;
+        }
+    }
+}
+void liberarDeVerdad(std::list<Bloque>&memoria){
+    for (auto it = memoria.begin(); it != memoria.end(); ++it){
+        if(it->estado==true){
+            auto sig=std:: next(it);
+            while(sig!=memoria.end()&&sig->estado==true){
+                it->size+=sig->size;
+                memoria.erase(sig);
+                sig=std::next(it);
+            }
         }
     }
 }
