@@ -24,6 +24,7 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 	int sig_id = 0;
 	int ciclo = 0;		// ciclo ;)
 	bool salir = false; // Bandera para la salida
+	Proceso procesoNuevo;
 
 	std::queue<Proceso> mainQueue; // cola de procesos listos (se puede renombrar a readyQueue si se implementa la bloquedQueue)
 	/*Alguna vez aqui habian variables y couts, ya no mas*/
@@ -42,8 +43,9 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 		{
 			std::cout << "Peor Ajuste ---";
 		}
+		ciclo++;
 
-		Proceso procesoNuevo = procesos(datos.maxSize, datos.procQuantum);
+		procesoNuevo = procesos(datos.maxSize, datos.procQuantum);
 		procesoNuevo.id = ++sig_id;
 		newQueue.push(procesoNuevo);
 		// NO MUEVAN LA LOGICA DE LOS AJUSTES CON ESO YA ESTA BIEN (Solo se movio la impresion)
@@ -140,7 +142,6 @@ void roundRobin(std::list<Bloque> &memoria, Paquete datos)
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(datos.velocidad_ms));
 
-		ciclo++;
 		std::cout << std::endl;
 		if (SPresionada())
 		{ // aquí se verifica por segunda vez, en el ciclo de los bloques
